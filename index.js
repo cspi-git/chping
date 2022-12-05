@@ -58,6 +58,7 @@
                     accept: "application/json"
                 }
             })
+            
             response = JSON.parse(response.body)
 
             setTimeout(function(){
@@ -94,14 +95,12 @@
         type = "cudp"
     }
 
-    if(args.tcp){
-        return tcpPing()
-    }
+    if(args.tcp) return tcpPing()
 
     if(type){
         console.log("Pinging the host, please wait.\n")
         await pingHost(args.host, type)
     }else{
-        console.log("Please use a method.")
+        console.log("Please use at least 1 argument.")
     }
 })()
