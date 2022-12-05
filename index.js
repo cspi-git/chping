@@ -58,17 +58,17 @@
                     accept: "application/json"
                 }
             })
-            
+
             response = JSON.parse(response.body)
 
-            setTimeout(function(){
+            setTimeout(()=>{
                 log("check-host", { resultID: response.request_id })
             }, 2000)
         })
     }
 
     function tcpPing(){
-        setInterval(async function(){
+        setInterval(async()=>{
             const result = await tcpPingNode.ping({ host: args.host, port: args.tcp, timeout: 10000 })
 
             log("tcp", { alive: result.success, ms: result.time })
