@@ -4,7 +4,7 @@ A powerful Paping alternative made using NodeJS.
 ## Installation
 Github:
 ```
-git clone https://github.com/hanaui-git/chping
+git clone https://github.com/cspi-git/chping
 ```
 
 NpmJS:
@@ -42,4 +42,4 @@ node index.js --host google.com --ctcp
 ```
 
 ## License
-MIT © Hanaui
+MIT © CSPI

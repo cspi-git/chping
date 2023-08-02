@@ -1,4 +1,4 @@
-(async function(){
+(async()=>{
     "use strict";
 
     // Dependencies
@@ -33,11 +33,7 @@
                 }
             }
         }else if(type === "tcp"){
-            if(others.alive){
-                console.log(`connected to ${chalk.blueBright(args.host)}; time=${chalk.greenBright(`${others.ms}ms`)}; protocol=${chalk.greenBright("TCP")}; port=${chalk.greenBright(args.tcp)}`)
-            }else{
-                console.log(`failed to connect to ${chalk.blueBright(args.host)}; time=${chalk.greenBright(`${others.ms}ms`)}; protocol=${chalk.greenBright("TCP")}; port=${chalk.greenBright(args.tcp)}`)
-            }
+            others.alive ? console.log(`connected to ${chalk.blueBright(args.host)}; time=${chalk.greenBright(`${others.ms}ms`)}; protocol=${chalk.greenBright("TCP")}; port=${chalk.greenBright(args.tcp)}`) : console.log(`failed to connect to ${chalk.blueBright(args.host)}; time=${chalk.greenBright(`${others.ms}ms`)}; protocol=${chalk.greenBright("TCP")}; port=${chalk.greenBright(args.tcp)}`)
         }
     }
 
@@ -59,18 +55,13 @@
                 }
             })
 
-            response = JSON.parse(response.body)
-
-            setTimeout(()=>{
-                log("check-host", { resultID: response.request_id })
-            }, 2000)
+            setTimeout(()=>{log("check-host", { resultID: JSON.parse(response.body).request_id })}, 2000)
         })
     }
 
     function tcpPing(){
         setInterval(async()=>{
             const result = await tcpPingNode.ping({ host: args.host, port: args.tcp, timeout: 10000 })
-
             log("tcp", { alive: result.success, ms: result.time })
         }, 1000)
     }
@@ -97,10 +88,5 @@
 
     if(args.tcp) return tcpPing()
 
-    if(type){
-        console.log("Pinging the host, please wait.\n")
-        await pingHost(args.host, type)
-    }else{
-        console.log("Please use at least 1 argument.")
-    }
+    type ? (console.log("Pinging the host, please wait.\n"), await pingHost(args.host, type)) : console.log("Please use at least 1 argument.")
 })()
